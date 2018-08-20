@@ -1,0 +1,161 @@
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <!--<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>-->
+  <!--<script src="http://code.jquery.com/jquery-latest.min.js"></script>-->
+  <link rel="stylesheet" href="assets/bootstrap.min.css">
+  <script src="assets/jquery.min.js"></script>
+  <script src="assets/bootstrap.min.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/jquery.validate.js"></script>
+  <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.13.1/additional-methods.js"></script>
+  <script src="http://thecodeplayer.com/uploads/js/jquery.easing.min.js"></script>
+  <link rel="stylesheet" href="assets/custom.css">
+  <link rel="stylesheet" href="map2/leaflet.css" />
+  <script src="map2/leaflet.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.css"/>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/0.4.2/leaflet.draw.js"></script>
+</head>
+  <title>Greenspace Survey 2018</title>
+</head>
+<body>
+  <div class="container">
+    <div id="header" class="header"><h3>Greenspace Survey</h3></div>
+    <div class="progress">
+		<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
+	<div class="alert alert-success hide"></div>
+	<form id="surveyForm" class="surveyForm">
+		<fieldset>
+			<legend>Hello and Welcome!</legend>
+			<div class="form-group">
+			<p>We're conducting research on use of Green Space in Bonn. We'd love to hear from you about...The survey should only take 3 minutes, and your responses are completely anonymous. </p>
+			<p>If you have any questions about the survey, please email us...</p>
+			<p>If you are ready, please press Next to start the survey.</p>
+			<p>We really appreciate your input!</p>
+		  </div>
+			<input type="button" class="next btn btn-info btnStart" value="Start Survey" />
+		</fieldset>
+		<!--q1-->
+		<fieldset>
+			<h3>1/8: How satisfied are you with the supply of greenspaces in Bonn?</h3>
+			<div class="form-group">
+				<p><input type="radio" name="q1" class="q1" id="q1_1" value="not satisfied at all" required> not satisfied at all</p>
+				<p><input type="radio" name="q1" class="q1" id="q1_2" value="less satisfied" > less satisfied</p>
+				<p><input type="radio" name="q1" class="q1" id="q1_3" value="neutral" > neutral</p>
+				<p><input type="radio" name="q1" class="q1" id="q1_4" value="satisfied" > satisfied</p>
+				<p><input type="radio" name="q1" class="q1" id="q1_5" value="very satisfied" > very satisfied</p>
+				<span class="errorTxt"></span>
+		  </div>
+			<input type="button" name="previous" class="previous btn btn-default" value="Previous" />
+			<!-- load map greenspace on click-->
+			<input type="button" id="get_mapGS" name="next" class="next btn btn-info" value="Next" />
+		</fieldset>
+		<!-- q2:Map component -->
+		<fieldset>
+		   <h3>2/8: Which were your last three visited greenspaces?</h3>
+		   <span>1)Click "Add a Greenspace"; 2)Find visited greenspace on map; 3)Click on the Name text box to set focus; 4)Click greenspace on map to get its name; 5)Fill in the rest of the textboxes. Repeat to add more greenspaces.</span>
+		   <p id="addQuestions"/>
+		   <button type="button" id="btnAddGS" >Add a Greenspace</button><br />
+		   <span class="errorTxt"></span>
+		   <div class="form-group">
+				<div id="mapGS" style="min-height: 350px;; min-width:400px"></div>	
+		  </div>
+			<input type="button" name="previous" class="previous btn btn-default" value="Previous" />
+			<input type="button" name="next" class="next btn btn-info" value="Next" />
+		</fieldset>
+		<!-- q3 -->
+		<fieldset>
+			<h3>3/8: What type of greenspaces are avaialbe for you at home</h3>
+			<div class="form-group">
+				<input type="checkbox" name="q3" class="q3" value="Balkony/terrace" required> balkony/terrace</p>
+				<input type="checkbox" name="q3" class="q3" value="Own garden"> own garden</p>
+				<input type="checkbox" name="q3" class="q3" value="Community garden"> community garden</p>
+				<input type="checkbox" name="q3" class="q3" value="Allotment"> allotment</p>
+				<span class="errorTxt"></span>
+		  </div>
+			<input type="button" name="previous" class="previous btn btn-default" value="Previous" />
+			<!-- show mapHome--->
+			<input id="showMapHome" type="button" name="next" class="next btn btn-info" value="Next" />
+		</fieldset>
+		<!-- q4 -->
+		<fieldset>
+		   <h3>4/8: Where do you live?</h3>
+		   1)Pan and zoom map to find your home; 2) Click (topriht) marker button, 3)Click on map to add your home location.
+		   <div class="form-group">
+		   Approximate house location: <input type="text" name="q4" id="q4" class="locHome" required></p>
+		   <span class="errorTxt"></span>
+		   <div id="mapDiv" style="min-height: 350px;; min-width:400px"></div>
+				
+		  </div>
+			<input type="button" name="previous" class="previous btn btn-default" value="Previous" />
+			<input type="button" name="next" id="showGreensMap" class="next btn btn-info" value="Next" />
+		</fieldset>
+		<!--q5 -->
+		<fieldset>
+			<h3>5/8: What is your gender identity?</h3>
+			<div class="form-group">
+				<p><input type="radio" name="q5" class="q5" id="q5_1" value="female" required> female</p>
+				<p><input type="radio" name="q5" class="q5" id="q5_2" value="male" > male</p>
+				<p><input type="radio" name="q5" class="q5" id="q5_3" value="third gender" > third gender</p>
+				<span class="errorTxt"></span>
+		  </div>
+			<input type="button" name="previous" class="previous btn btn-default" value="Previous" />
+			<input type="button" name="next" class="next btn btn-info" value="Next" />
+		</fieldset>
+		<!--q6-->
+		<fieldset>
+			<h3>6/8: Which age group do you belong to?</h3><!--q1_agegroup-->
+			<div class="form-group">
+				<p><input type="radio" name="q6" class="q6" id="q6_1" value="<20" required> <20</p>
+				<p><input type="radio" name="q6" class="q6" id="q6_2" value="21-35" > 21-35</p>
+				<p><input type="radio" name="q6" class="q6" id="q6_3" value="36-50" > 36-50</p>
+				<p><input type="radio" name="q6" class="q6" id="q6_4" value="51-65" > 51-65</p>
+				<p><input type="radio" name="q6" class="q6" id="q6_5" value="65" > >65</p>
+				<span class="errorTxt"></span>
+		  </div>
+			<input type="button" name="previous" class="previous btn btn-default" value="Previous" />
+			<input type="button" name="next" class="next btn btn-info" value="Next" />
+		</fieldset>
+		
+		<!--q7 -->
+		<fieldset>
+			<h3>7/8: What is your marital status?</h3>
+			<div class="form-group">
+				<p><input type="radio" name="q7" class="q7" id="q7_1" value="umarried" required> umarried</p>
+				<p><input type="radio" name="q7" class="q7" id="q7_2" value="married" > married</p>
+				<p><input type="radio" name="q7" class="q7" id="q7_3" value="divorced"> divorced</p>
+				<p><input type="radio" name="q7" class="q7" id="q7_4" value="widowed"> widowed</p>
+				<p><input type="radio" name="q7" class="q7" id="q7_5" value="comman law"> comman law</p>
+				<span class="errorTxt"></span>
+		  </div>
+			<input type="button" name="previous" class="previous btn btn-default" value="Previous" />
+			<input type="button" name="next" class="next btn btn-info" value="Next" />
+		</fieldset>
+		
+		<!--q8 -->
+		<fieldset>
+			<h3>8/8: What is the size of your household?</h3>
+			<div class="form-group">
+				<p><input type="radio" name="q8" class="q8" id="q8_1" value="1" required> 1</p>		
+				<p><input type="radio" name="q8" class="q8" id="q8_2" value="2" > 2</p>
+				<p><input type="radio" name="q8" class="q8" id="q8_3" value="3"> 3</p>
+				<p><input type="radio" name="q8" class="q8" id="q8_4" value="4"> 4</p>
+				<p><input type="radio" name="q8" class="q8" id="q8_5" value=">=5"> >=5</p>
+				<span class="errorTxt"></span>
+		  </div>
+			<input type="button" name="previous" id="previousMap" class="previous btn btn-default" value="Previous" />
+			<input type="submit" name="submit" class="submit btn btn-success" value="Submit" />
+		</fieldset>
+		
+	</form>
+	<br />	<br />
+    <div id="footer">The Geoinfo Project, University of Bonn 2018</div>
+  </div>
+</body>
+<script type="text/javascript" src="assets/myscript.js"></script>
+<script type="text/javascript" src="assets/_mywebsql.js"></script>
+</html>

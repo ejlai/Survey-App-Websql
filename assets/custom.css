@@ -1,0 +1,60 @@
+html, body {
+	height: 100%;
+}
+
+.header{
+	width: 100%;
+	text-align: center;
+}
+
+#footer{
+	width: 100%;
+	text-align: center;
+}
+
+.btnStart{	
+	background-color: #4CAF50; /* Green */
+	border: none;
+	color: white;
+	padding: 10px 30px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 16px;
+}
+
+.next{
+	padding: 6px 28px;
+	text-align: center;
+}
+
+
+#surveyForm fieldset:not(:first-of-type) {
+	display: none;
+}
+.btn-info, .btnStart, .next{
+	background-color:#4CAF50;
+}
+.progress-bar{
+	background-color:#4CAF50;
+}
+
+.btn-info.active, .btn-info:actve, .open{
+	background-color:#4CAF50;		
+}
+
+/* Required fields */
+.error {
+	color: #FF0000;	
+	font-size: 12px;
+}
+
+.errorTxt{
+  /*border: 1px solid red;*/
+  min-height: 20px;
+}
+/* where do you live*/
+.locHome{
+	border:none;
+	border-bottom: 1px solid black;
+}
